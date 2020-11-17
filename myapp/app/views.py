@@ -1,6 +1,7 @@
 from flask import render_template
 from flask_appbuilder.models.sqla.interface import SQLAInterface
 from flask_appbuilder import ModelView, ModelRestApi
+from flask_appbuilder import BaseView, expose, has_access
 
 from . import appbuilder, db
 
@@ -31,6 +32,28 @@ from . import appbuilder, db
         category_icon='fa-envelope'
     )
 """
+
+class MyTemplateView(BaseView):
+
+    default_view = "my_template"
+
+    @expose("/my_template")
+    @has_access
+    def my_template(self):
+
+        numbers = [0, 1, 2, 3, 'a']
+
+        return self.render_template(
+                "my_template.html",
+                template_h3="My Flask Template", 
+                numbers=numbers
+        )
+
+## Add views to appbuilder
+appbuilder.add_view(MyTemplateView, "MyTemplate", category="FlaskTutorial")
+
+## Add a view as sub-menu under a category
+appbuilder.add_link("Method2", href='/mytemplateview/method2', category='FlaskTutorial')
 
 """
     Application wide 404 error handler

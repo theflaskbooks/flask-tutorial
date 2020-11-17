@@ -1,0 +1,33 @@
+{% extends "my_base.html" %}
+
+{% block template_header %}
+    {{ template_h3 }}
+{% endblock %}
+
+
+{% block content %}
+
+ {{ super() }}
+{# For loop construct #}
+{% for num in numbers %} 
+    <ul>
+
+        {# conditional statement  #}
+
+        {% if num is number and num is gt 0 %} 
+
+        {# evaluating variables and expressions #}
+        <li> {{ num }} - {{ num + 1 }} </li>
+
+        {% else %}
+
+        {# An example use of built-in function and a filter #}
+        <li> {{ "found {}, which is not a number or not greater".format(num|string) }}</li>
+
+        {% endif %}
+
+    </ul>
+
+{% endfor %}
+
+{% endblock %}
